@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearth & Hue Collection - Sample Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#1b1e24',
+                        'brand-purple': '#454dcc',
+                        'brand-beige': '#f1e8de',
+                        'brand-beige-dark': '#ccc4ba',
+                        'brand-beige-light': '#e7dccf',
+                        'neutral-300': '#cbd5e1',
+                        'purple-50': '#dddff9',
+                        'dark-bg': '#0d0f15',
+                    },
+                    fontFamily: {
+                        'futura': ['Futura PT', 'Arial', 'sans-serif'],
+                        'nunito': ['Nunito Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Futura PT';
+            src: local('Futura PT Heavy'), local('Futura-Heavy');
+            font-weight: 900;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Futura PT';
+            src: local('Futura PT Demi'), local('Futura-Demi');
+            font-weight: 600;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+        }
+        .futura-heavy {
+            font-family: 'Futura PT', Arial, sans-serif;
+            font-weight: 900;
+        }
+        .futura-demi {
+            font-family: 'Futura PT', Arial, sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white antialiased">
+    
+    <h1 style="color: yellow; text-align: center; padding: 20px; background: red;">⚠️ THIS IS THE FIXED VERSION - COMPARE WITH collection-detail.html</h1>
+    
+    <!-- Hero Section -->
+    <section class="bg-brand-dark py-24">
+        <div class="max-w-[1440px] mx-auto px-[104px]">
+            <div class="flex gap-[104px] items-center">
+                <div class="w-[709px] flex-shrink-0">
+                    <div class="bg-white rounded-3xl overflow-hidden h-[537px]">
+                        <h3 style="color: black; padding: 10px;">SECTION 1 HERO:</h3>
+                        <img src="assets/Images-collection/02-01.png" alt="Hearth & Hue Collection" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="flex-1 flex flex-col gap-8">
+                    <h1 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-brand-beige-light">
+                        Hearth & Hue
+                    </h1>
+                    <p class="text-[20px] leading-7 text-white">
+                        Provide homeowners with customized product recommendations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Width Image with Overlay - THIS IS SECTION 2 -->
+    <section class="relative h-[600px] overflow-hidden" style="border: 5px solid yellow;">
+        <h2 style="position: absolute; top: 0; left: 0; background: yellow; color: black; padding: 10px; z-index: 999;">SECTION 2 OVERLAY (THIS ONE!)</h2>
+        <div class="absolute inset-0">
+            <!-- THIS IS THE IMAGE YOU WANT TO CHANGE -->
+            <img src="assets/Images-collection/02-01.png" alt="Room Overview" class="w-full h-full object-cover" style="border: 10px solid red;">
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+            <div class="max-w-[874px] flex flex-col gap-6">
+                <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white">
+                    What's in this room?
+                </h2>
+                <p class="text-white text-xl">This should show 02-01.png with dark overlay</p>
+            </div>
+        </div>
+    </section>
+
+    <div style="background: white; color: black; padding: 40px; text-align: center;">
+        <h2>If Section 2 STILL shows wrong image, there's something wrong with your browser or file system!</h2>
+        <p>Compare this page with collection-detail.html - they should look identical</p>
+    </div>
+
+</body>
+</html>
+

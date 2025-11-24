@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Section 2 ONLY Test</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body style="margin: 0; padding: 0; background: #1b1e24;">
+    
+    <h1 style="background: yellow; color: black; padding: 20px; margin: 0; text-align: center;">
+        ISOLATED TEST: Section 2 ONLY - NO OTHER CODE
+    </h1>
+    
+    <!-- EXACT COPY of Section 2 from collection-detail.html -->
+    <section style="position: relative; height: 1205px; overflow: hidden;">
+        <div style="position: absolute; inset: 0;">
+            <img src="assets/Images-collection/02-01.png?t=<?php echo time(); ?>" 
+                 alt="Room Overview" 
+                 style="width: 100%; height: 100%; object-fit: cover; border: 10px solid red;">
+            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4);"></div>
+        </div>
+        <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 20px;">
+            <div style="max-width: 874px;">
+                <h2 style="font-family: 'Futura PT', Arial, sans-serif; font-weight: 900; font-size: 60px; line-height: 64px; letter-spacing: -1.1px; color: white; margin: 0 0 24px 0;">
+                    What's in this room?
+                </h2>
+                <p style="font-family: 'Futura PT', Arial, sans-serif; font-weight: 900; font-size: 30px; line-height: 36px; letter-spacing: -0.5px; color: white; max-width: 419px; margin: 0 auto;">
+                    This should show 02-01.png with overlay
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <div style="background: white; color: black; padding: 40px; text-align: center;">
+        <h2>If this STILL shows the wrong image, clear your browser's Application cache!</h2>
+        <p>Press F12 → Application tab → Clear storage → Clear site data</p>
+    </div>
+    
+    <script>
+        // Force reload without cache
+        if (performance.navigation.type !== 1) {
+            location.reload(true);
+        }
+        
+        // Log image load
+        document.querySelector('img').addEventListener('load', function() {
+            console.log('✅ Image loaded:', this.src);
+            console.log('Size:', this.naturalWidth, 'x', this.naturalHeight);
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Fonts */
+@font-face {
+    font-family: 'Futura PT';
+    src: local('Futura PT Heavy'), local('Futura-Heavy');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura PT';
+    src: local('Futura PT Demi'), local('Futura-Demi');
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.futura-heavy {
+    font-family: 'Futura PT', Arial, sans-serif;
+    font-weight: 900;
+}
+
+.futura-demi {
+    font-family: 'Futura PT', Arial, sans-serif;
+    font-weight: 600;
+}
+
+/* Custom Animations */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

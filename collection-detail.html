@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearth & Hue Collection - Sample Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#1b1e24',
+                        'brand-purple': '#454dcc',
+                        'brand-beige': '#f1e8de',
+                        'brand-beige-dark': '#ccc4ba',
+                        'brand-beige-light': '#e7dccf',
+                        'neutral-300': '#cbd5e1',
+                        'purple-50': '#dddff9',
+                        'dark-bg': '#0d0f15',
+                    },
+                    fontFamily: {
+                        'futura': ['Futura PT', 'Arial', 'sans-serif'],
+                        'nunito': ['Nunito Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Futura PT';
+            src: local('Futura PT Heavy'), local('Futura-Heavy');
+            font-weight: 900;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Futura PT';
+            src: local('Futura PT Demi'), local('Futura-Demi');
+            font-weight: 600;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+        }
+        .futura-heavy {
+            font-family: 'Futura PT', Arial, sans-serif;
+            font-weight: 900;
+        }
+        .futura-demi {
+            font-family: 'Futura PT', Arial, sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white antialiased">
+    
+    <!-- Header -->
+    <header class="bg-brand-dark border-b border-gray-800">
+        <div class="max-w-[1440px] mx-auto px-[104px] py-4 flex items-center justify-between">
+            <div class="flex items-center gap-10">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <img src="assets/logo/logo.svg" alt="Sample-box Logo" class="h-5">
+                    </a>
+                </div>
+                <!-- Navigation -->
+                <nav class="flex items-center gap-6">
+                    <button class="flex items-center gap-1 text-white font-semibold text-base hover:text-purple-50 transition-colors">
+                        <span>Use Cases</span>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <a href="#company" class="text-white font-semibold text-base hover:text-purple-50 transition-colors">Company</a>
+                    <a href="#blog" class="text-white font-semibold text-base hover:text-purple-50 transition-colors">Blog</a>
+                    <a href="#integrations" class="text-white font-semibold text-base hover:text-purple-50 transition-colors">Integrations</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#login" class="text-white font-bold text-base hover:text-purple-50 transition-colors">Log In</a>
+                <button class="px-5 py-3 border border-gray-700 rounded-lg text-white font-bold text-base hover:bg-white/5 transition-all">
+                    Get early access
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-brand-dark py-24">
+        <div class="max-w-[1440px] mx-auto px-[104px]">
+            <div class="flex gap-[104px] items-center">
+                <div class="w-[709px] flex-shrink-0">
+                    <div class="overflow-hidden h-[537px]">
+                        <img src="assets/Images-collection/02-01.png?nocache=20251124073500" alt="Hearth & Hue Collection" class="w-full h-full object-contain">
+                    </div>
+                </div>
+                <div class="flex-1 flex flex-col gap-8">
+                    <div class="flex flex-col gap-4">
+                        <h1 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-brand-beige-light">
+                            Hearth & Hue
+                        </h1>
+                        <p class="text-[20px] leading-7 text-white">
+                            Provide homeowners with customized product recommendations to boost satisfaction, reduce returns, and drive upsells. Empower customers to make informed buying decisions, increasing conversions and giving you more control over transactions.
+                        </p>
+                    </div>
+                    <button class="px-5 py-2 bg-white text-brand-dark font-bold text-base rounded-lg hover:bg-gray-100 transition-all w-[210px]">
+                        Order for my property
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Scroll Section with Image Switching -->
+    <!-- Scroll spacer provides height for scrolling -->
+    <div id="scrollSpacer" style="height: 500vh; position: relative;">
+        <!-- Fixed container that stays in viewport -->
+        <div id="fixedContainer" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #1B1E24;">
+            <!-- Image Container that scales and switches -->
+            <div id="imageContainer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 100%; height: 100%; transition: transform 0.3s ease-out;">
+                <img id="scrollImage" src="assets/Images-collection/02-01.png" alt="What's in this room" style="width: 100%; height: 100%; object-fit: cover; opacity: 1;">
+            </div>
+            <div id="overlayBg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 2; opacity: 0; transition: opacity 0.6s ease-out;"></div>
+            <div id="textOverlay" style="position: relative; z-index: 3; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; opacity: 0; transition: opacity 0.6s ease-out, transform 0.6s ease-out; transform: translateY(100px);">
+                <div style="max-width: 874px;">
+                    <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white mb-6">
+                        What's in this room?
+                    </h2>
+                    <p class="futura-heavy text-[30px] leading-[36px] tracking-[-0.5px] text-white" style="max-width: 419px; margin: 0 auto;">
+                        Provide homeowners with customized product recommendations to boost satisfaction, reduce returns, and drive upsells. Empower customers to make informed buying decisions, increasing conversions and giving you more control over transactions.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Product Card - appears on third image -->
+            <div id="productCard" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, calc(-50% + 300px)) scaleX(0); transform-origin: right center; z-index: 4; opacity: 0; transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease-out; display: flex; gap: 12px; align-items: center;">
+                <div style="display: flex; gap: 16px; align-items: center; padding: 16px; border-radius: 12px; backdrop-filter: blur(10px); background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%), linear-gradient(rgba(255, 253, 252, 0.3) 7.9633%, rgba(248, 255, 245, 0.224) 35.84%, rgba(248, 255, 245, 0.15) 67.451%, rgba(255, 255, 255, 0.3) 100%); width: 565px;">
+                    <!-- Image Thumbnail -->
+                    <div style="width: 142px; height: 142px; background: white; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                        <img src="assets/Images-collection/Calacatta.png" alt="Calacatta Miraggio Cove" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
+                    </div>
+                    <!-- Text Content -->
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
+                        <div>
+                            <p class="futura-demi" style="font-size: 24px; line-height: 30px; letter-spacing: -0.24px; color: #334155; margin: 0;">
+                                Calacatta Miraggio Cove
+                            </p>
+                            <p class="text-[20px] leading-7" style="color: #334155; margin: 0;">
+                                Revamp your space with Cabana Blonde porcelain tile, available in an impressive 9" x 47" large format that commands attention in any setting.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Indicator dot -->
+                <div style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.6); border-radius: 50%; flex-shrink: 0; position: relative;">
+                    <div style="position: absolute; left: 9px; top: 9px; width: 18px; height: 18px; background: #ffffff; border-radius: 50%;"></div>
+                </div>
+            </div>
+            
+            <!-- Product Card 2 - appears on fourth image (up 100px, left 300px from center) -->
+            <div id="productCard2" style="position: absolute; left: 50%; top: 50%; transform: translate(calc(-50% - 300px), calc(-50% - 100px)) scaleX(0); transform-origin: right center; z-index: 4; opacity: 0; transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease-out; display: flex; gap: 12px; align-items: center;">
+                <div style="display: flex; gap: 16px; align-items: center; padding: 16px; border-radius: 12px; backdrop-filter: blur(10px); background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%), linear-gradient(rgba(255, 253, 252, 0.3) 7.9633%, rgba(248, 255, 245, 0.224) 35.84%, rgba(248, 255, 245, 0.15) 67.451%, rgba(255, 255, 255, 0.3) 100%); width: 565px;">
+                    <!-- Image Thumbnail -->
+                    <div style="width: 142px; height: 142px; background: white; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                        <img src="assets/Images-collection/Calacatta.png" alt="Calacatta Miraggio Cove" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
+                    </div>
+                    <!-- Text Content -->
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
+                        <div>
+                            <p class="futura-demi" style="font-size: 24px; line-height: 30px; letter-spacing: -0.24px; color: #334155; margin: 0;">
+                                Calacatta Miraggio Cove
+                            </p>
+                            <p class="text-[20px] leading-7" style="color: #334155; margin: 0;">
+                                Revamp your space with Cabana Blonde porcelain tile, available in an impressive 9" x 47" large format that commands attention in any setting.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Indicator dot -->
+                <div style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.6); border-radius: 50%; flex-shrink: 0; position: relative;">
+                    <div style="position: absolute; left: 9px; top: 9px; width: 18px; height: 18px; background: #ffffff; border-radius: 50%;"></div>
+                </div>
+            </div>
+            
+            <!-- Scroll Progress Indicator -->
+            <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 4; display: flex; gap: 10px;">
+                <div class="dot" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 1; transition: opacity 0.3s;"></div>
+                <div class="dot" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.3; transition: opacity 0.3s;"></div>
+                <div class="dot" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.3; transition: opacity 0.3s;"></div>
+                <div class="dot" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.3; transition: opacity 0.3s;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Image switching and scaling animation with fixed scroll
+        (function() {
+            const images = [
+                'assets/Images-collection/02-01.png',
+                'assets/Images-collection/02-02.png',
+                'assets/Images-collection/02-03.png',
+                'assets/Images-collection/02-04.png'
+            ];
+            
+            const scrollSpacer = document.getElementById('scrollSpacer');
+            const imageContainer = document.getElementById('imageContainer');
+            const scrollImage = document.getElementById('scrollImage');
+            const textOverlay = document.getElementById('textOverlay');
+            const overlayBg = document.getElementById('overlayBg');
+            const productCard = document.getElementById('productCard');
+            const productCard2 = document.getElementById('productCard2');
+            const dots = document.querySelectorAll('.dot');
+            
+            let currentImageIndex = 0;
+            let imageLoadCache = {};
+            
+            // Preload all images to prevent flickering
+            images.forEach((src, index) => {
+                const img = new Image();
+                img.src = src;
+                imageLoadCache[index] = img;
+            });
+            
+            function updateSection() {
+                const spacerRect = scrollSpacer.getBoundingClientRect();
+                const spacerTop = spacerRect.top;
+                const spacerHeight = spacerRect.height;
+                const windowHeight = window.innerHeight;
+                
+                // Calculate scroll progress through the spacer
+                // Progress from 0 (spacer top at bottom of viewport) to 1 (spacer bottom at top of viewport)
+                const scrollProgress = Math.max(0, Math.min(1, (windowHeight - spacerTop) / (spacerHeight + windowHeight)));
+                
+                // Only animate when spacer is in view
+                if (spacerTop < windowHeight && spacerTop + spacerHeight > 0) {
+                    // Scale from 0.8 to 1.0 (first 20% of scroll)
+                    const scaleProgress = Math.min(1, scrollProgress / 0.2);
+                    const scale = 0.8 + (0.2 * scaleProgress);
+                    
+                    // Apply scale
+                    imageContainer.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                    
+                    // Switch images based on scroll progress (after scaling is complete)
+                    // Use 80% of scroll for images, last 20% for viewing the final image
+                    if (scrollProgress > 0.2 && scrollProgress < 0.8) {
+                        // Divide scroll into 4 image segments, with third and fourth images staying longer
+                        const imageProgress = (scrollProgress - 0.2) / 0.6;
+                        let newIndex;
+                        if (imageProgress < 0.15) {
+                            newIndex = 0; // First image: 0-15%
+                        } else if (imageProgress < 0.3) {
+                            newIndex = 1; // Second image: 15-30%
+                        } else if (imageProgress < 0.65) {
+                            newIndex = 2; // Third image: 30-65% (longer duration)
+                        } else {
+                            newIndex = 3; // Fourth image: 65-100% (longer duration)
+                        }
+                        
+                        if (newIndex !== currentImageIndex) {
+                            currentImageIndex = newIndex;
+                            
+                            // Directly change image source (preloaded, so no flickering)
+                            scrollImage.src = images[currentImageIndex];
+                            
+                            // Update dots
+                            dots.forEach((dot, index) => {
+                                dot.style.opacity = index === currentImageIndex ? '1' : '0.3';
+                            });
+                            
+                            // Show overlay only for the second image (index 1) - slide in from bottom, slide up when leaving
+                            if (currentImageIndex === 1) {
+                                textOverlay.style.opacity = '1';
+                                textOverlay.style.transform = 'translateY(0)';
+                                overlayBg.style.opacity = '0.4';
+                            } else if (currentImageIndex === 0) {
+                                // Before second image - position below
+                                textOverlay.style.opacity = '0';
+                                textOverlay.style.transform = 'translateY(100px)';
+                                overlayBg.style.opacity = '0';
+                            } else {
+                                // After second image - slide up and fade out
+                                textOverlay.style.opacity = '0';
+                                textOverlay.style.transform = 'translateY(-100px)';
+                                overlayBg.style.opacity = '0';
+                            }
+                        }
+                        
+                        // Show product card based on scroll progress within the third image (index 2)
+                        if (currentImageIndex === 2) {
+                            // Third image appears from 0.3 to 0.65 of imageProgress
+                            // Calculate progress within third image section
+                            const thirdImageStart = 0.3;
+                            const thirdImageEnd = 0.65;
+                            const progressInThirdImage = (imageProgress - thirdImageStart) / (thirdImageEnd - thirdImageStart);
+                            
+                            // Show card after 30% through the third image
+                            if (progressInThirdImage > 0.3) {
+                                productCard.style.opacity = '1';
+                                productCard.style.transform = 'translate(-50%, calc(-50% + 300px)) scaleX(1)';
+                            } else {
+                                productCard.style.opacity = '0';
+                                productCard.style.transform = 'translate(-50%, calc(-50% + 300px)) scaleX(0)';
+                            }
+                        } else if (currentImageIndex > 2) {
+                            // After third image - fade out while collapsing
+                            productCard.style.opacity = '0';
+                            productCard.style.transform = 'translate(-50%, calc(-50% + 300px)) scaleX(0.5)';
+                        } else {
+                            // Before third image
+                            productCard.style.opacity = '0';
+                            productCard.style.transform = 'translate(-50%, calc(-50% + 300px)) scaleX(0)';
+                        }
+                        
+                        // Show product card 2 based on scroll progress within the fourth image (index 3)
+                        if (currentImageIndex === 3) {
+                            // Fourth image appears from 0.65 to 1.0 of imageProgress
+                            // Calculate progress within fourth image section
+                            const fourthImageStart = 0.65;
+                            const fourthImageEnd = 1.0;
+                            const progressInFourthImage = (imageProgress - fourthImageStart) / (fourthImageEnd - fourthImageStart);
+                            
+                            // Show card after 30% through the fourth image
+                            if (progressInFourthImage > 0.3) {
+                                productCard2.style.opacity = '1';
+                                productCard2.style.transform = 'translate(calc(-50% - 300px), calc(-50% - 100px)) scaleX(1)';
+                            } else {
+                                productCard2.style.opacity = '0';
+                                productCard2.style.transform = 'translate(calc(-50% - 300px), calc(-50% - 100px)) scaleX(0)';
+                            }
+                        } else if (currentImageIndex > 3) {
+                            // After fourth image - fade out while collapsing
+                            productCard2.style.opacity = '0';
+                            productCard2.style.transform = 'translate(calc(-50% - 300px), calc(-50% - 100px)) scaleX(0.5)';
+                        } else {
+                            // Before fourth image
+                            productCard2.style.opacity = '0';
+                            productCard2.style.transform = 'translate(calc(-50% - 300px), calc(-50% - 100px)) scaleX(0)';
+                        }
+                    }
+                }
+            }
+            
+            // Listen to scroll
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateSection();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Initial update
+            updateSection();
+        })();
+    </script>
+
+    <!-- Products Section -->
+    <section class="bg-brand-dark py-24">
+        <div class="max-w-[1440px] mx-auto px-[104px]">
+            <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-brand-beige text-center mb-12">
+                What's in this room?
+            </h2>
+            
+            <div class="mb-6">
+                <div id="productCarousel" class="flex gap-6 transition-transform duration-500 ease-out">
+                    <!-- Product 1 -->
+                    <div class="w-[499px] flex-shrink-0 flex flex-col gap-6">
+                        <div class="bg-dark-bg rounded-3xl h-[421px] flex items-center justify-center overflow-hidden">
+                            <img src="assets/Images-collection/Laurel.png" alt="Laurel Hyde Haven Luxury Vinyl Planks" class="w-60 h-60 object-cover">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <h3 class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
+                                    Laurel Hyde Haven Luxury Vinyl Planks
+                                </h3>
+                                <p class="text-base leading-6 text-white tracking-[-0.11px]">
+                                    SKU: PSL-CALACATTAAZAI10842IS
+                                </p>
+                            </div>
+                            <p class="text-[20px] leading-7 text-white">
+                                Provide homeowners with customized product recommendations to boost satisfaction, reduce returns, and drive upsells. Empower customers to make informed buying decisions, increasing conversions and giving you more control over transactions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="w-[500px] flex-shrink-0 flex flex-col gap-6">
+                        <div class="bg-dark-bg rounded-3xl h-[421px] flex items-center justify-center overflow-hidden">
+                            <img src="assets/Images-collection/Calacatta.png" alt="Calacatta Miraggio Cove" class="w-60 h-60 object-cover">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <h3 class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
+                                    Calacatta Miraggio Cove
+                                </h3>
+                                <p class="text-base leading-6 text-white tracking-[-0.11px]">
+                                    SKU: PSL-CALACATTAAZAI10842IS
+                                </p>
+                            </div>
+                            <p class="text-[20px] leading-7 text-white">
+                                Exquisite and refined, Calacatta Miraggio Cove® creates a lasting impression with its captivating blend of gold, white, and beige veins set against a warm gold Carrara-like backdrop.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="w-[499px] flex-shrink-0 flex flex-col gap-6">
+                        <div class="bg-dark-bg rounded-3xl h-[421px] flex items-center justify-center overflow-hidden">
+                            <img src="assets/Images-collection/White.png" alt="White Slim Shaker" class="w-60 h-60 object-cover">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <h3 class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
+                                    White Slim Shaker
+                                </h3>
+                                <p class="text-base leading-6 text-white tracking-[-0.11px]">
+                                    SKU: PSL-CALACATTAAZAI10842IS
+                                </p>
+                            </div>
+                            <p class="text-[20px] leading-7 text-white">
+                                Provide homeowners with customized product recommendations to boost satisfaction, reduce returns, and drive upsells. Empower customers to make informed buying decisions, increasing conversions and giving you more control over transactions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 - Placeholder -->
+                    <div class="w-[499px] flex-shrink-0 flex flex-col gap-6">
+                        <div class="bg-dark-bg rounded-3xl h-[421px] flex items-center justify-center overflow-hidden">
+                            <img src="assets/Images-collection/dishwasher.png" alt="Modern Cabinet" class="w-60 h-60 object-cover">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <h3 class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
+                                    Modern Cabinet Series
+                                </h3>
+                                <p class="text-base leading-6 text-white tracking-[-0.11px]">
+                                    SKU: PSL-MODERNCA10842IS
+                                </p>
+                            </div>
+                            <p class="text-[20px] leading-7 text-white">
+                                Contemporary design meets functionality with our Modern Cabinet Series. Perfect for any modern home seeking clean lines and premium materials.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 - Placeholder -->
+                    <div class="w-[500px] flex-shrink-0 flex flex-col gap-6">
+                        <div class="bg-dark-bg rounded-3xl h-[421px] flex items-center justify-center overflow-hidden">
+                            <img src="assets/Images-collection/cabinet.png" alt="Premium Marble" class="w-60 h-60 object-cover">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <h3 class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
+                                    Premium Marble Collection
+                                </h3>
+                                <p class="text-base leading-6 text-white tracking-[-0.11px]">
+                                    SKU: PSL-PREMIUMMAR10842IS
+                                </p>
+                            </div>
+                            <p class="text-[20px] leading-7 text-white">
+                                Luxurious marble surfaces that bring elegance and sophistication to any space. Timeless beauty meets modern durability.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 - Placeholder -->
+                    <div class="w-[499px] flex-shrink-0 flex flex-col gap-6">
+                        <div class="bg-dark-bg rounded-3xl h-[421px] flex items-center justify-center overflow-hidden">
+                            <img src="assets/Images-collection/fridge.png" alt="Wood Flooring" class="w-60 h-60 object-cover">
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <h3 class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
+                                    Classic Wood Flooring
+                                </h3>
+                                <p class="text-base leading-6 text-white tracking-[-0.11px]">
+                                    SKU: PSL-CLASSICWOOD10842IS
+                                </p>
+                            </div>
+                            <p class="text-[20px] leading-7 text-white">
+                                Authentic wood grain patterns with the durability of modern engineering. Warm, inviting, and built to last.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <div class="flex justify-end gap-6">
+                <button id="prevProductBtn" class="w-12 h-12 bg-neutral-300/30 rounded-lg flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M12 15L7 10L12 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button id="nextProductBtn" class="w-12 h-12 bg-neutral-300/30 rounded-lg flex items-center justify-center hover:opacity-100 transition-opacity">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M8 5L13 10L8 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Collections Section -->
+    <section class="bg-brand-dark py-24">
+        <div class="max-w-[1440px] mx-auto px-[104px]">
+            <div class="text-center mb-16 max-w-[604px] mx-auto flex flex-col gap-8">
+                <div class="flex flex-col gap-4">
+                    <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white">
+                        More collections
+                    </h2>
+                    <p class="text-[24px] leading-8 text-neutral-300">
+                        Interested in build up your own collections or inquiry the collection price?
+                    </p>
+                </div>
+                <button class="mx-auto px-5 py-2 bg-white text-brand-dark font-bold text-base rounded-lg hover:bg-gray-100 transition-all">
+                    Contact us
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <!-- Collection 1 -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-dark-bg rounded-3xl h-[501px] overflow-hidden">
+                        <img src="assets/images/10.png" alt="Vivid Revival" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-[20px] leading-7 text-white">
+                        <span class="font-black">Vivid Revival </span>
+                        <span class="text-slate-300">The Vivid Revival trend is transforming interiors with electrifying colors, bold patterns, and dynamic design elements that replace subtle neutrals with unapologetic flair.</span>
+                    </p>
+                </div>
+
+                <!-- Collection 2 -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-dark-bg rounded-3xl h-[501px] overflow-hidden">
+                        <img src="assets/images/11.png" alt="Elevated Scale" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-[20px] leading-7 text-white">
+                        <span class="font-black">Elevated Scale </span>
+                        <span class="text-slate-300">The XL Trend is redefining spaces with oversized elements that amplify openness and invite warmth, extending large-scale surfaces from floors to walls and exteriors.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="bg-brand-dark py-24">
+        <div class="max-w-[1440px] mx-auto px-[104px]">
+            <div class="bg-dark-bg rounded-2xl p-12 max-w-[1232px] mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white mb-8 max-w-[816px] mx-auto">
+                        Interested in buying from us? Get a demo today.
+                    </h2>
+                </div>
+                
+                <form class="max-w-[394px] mx-auto space-y-3">
+                    <div>
+                        <label class="block text-sm font-semibold text-white mb-1 tracking-[-0.06px]">
+                            Name<span class="text-white">*</span>
+                        </label>
+                        <input type="text" placeholder="e.g. Acme Corp" required class="w-full px-3 py-2.5 bg-transparent border border-gray-700 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-brand-purple transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-white mb-1 tracking-[-0.06px]">
+                            Email<span class="text-white">*</span>
+                        </label>
+                        <input type="email" placeholder="Select size" required class="w-full px-3 py-2.5 bg-transparent border border-gray-700 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-brand-purple transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-white mb-1 tracking-[-0.06px]">
+                            Phone<span class="text-white">*</span>
+                        </label>
+                        <input type="tel" placeholder="e.g. Austin, TX" required class="w-full px-3 py-2.5 bg-transparent border border-gray-700 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-brand-purple transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-white mb-1 tracking-[-0.06px]">
+                            Company<span class="text-white">*</span>
+                        </label>
+                        <select required class="w-full px-3 py-2.5 bg-transparent border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:border-brand-purple transition-colors appearance-none">
+                            <option value="" class="bg-brand-dark">Select property count</option>
+                            <option value="1-5" class="bg-brand-dark">1-5</option>
+                            <option value="6-10" class="bg-brand-dark">6-10</option>
+                            <option value="11+" class="bg-brand-dark">11+</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full px-5 py-2.5 bg-white text-brand-purple font-bold text-base rounded-lg hover:bg-gray-100 transition-all mt-8">
+                        Get Demo
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark py-12 border-t border-gray-800">
+        <div class="max-w-[1440px] mx-auto px-[104px]">
+            <div class="grid grid-cols-[608px_1fr] gap-6 mb-12">
+                <div>
+                    <a href="index.html">
+                        <img src="assets/logo/logo.svg" alt="Sample-box Logo" class="h-5 mb-4">
+                    </a>
+                </div>
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="space-y-2">
+                        <h4 class="text-white font-bold text-base mb-4">Use Cases</h4>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Property Companies</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Contractors</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Home Warranty</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Manufacturers</a>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-white font-bold text-base mb-4">Company</h4>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">About</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Careers</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Blog</a>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-white font-bold text-base mb-4">Resources</h4>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Support</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Contact</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Help Center</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="#" class="block text-neutral-300 text-base hover:text-white transition-colors">Terms</a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between items-center pt-6 border-t border-white/10">
+                <p class="text-white text-base">©2025 Sibi. Made with 🍦.</p>
+                <div class="flex gap-2">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product carousel functionality - slide one product at a time
+        (function() {
+            const carousel = document.getElementById('productCarousel');
+            const prevBtn = document.getElementById('prevProductBtn');
+            const nextBtn = document.getElementById('nextProductBtn');
+            
+            let currentIndex = 0;
+            const totalProducts = 6;
+            const maxIndex = totalProducts - 3; // Can scroll until 3 products are visible
+            
+            function updateCarousel() {
+                // Calculate offset for single product transitions
+                // Product widths: 499, 500, 499, 499, 500, 499 with 24px gaps
+                let offset = 0;
+                for (let i = 0; i < currentIndex; i++) {
+                    if (i === 0 || i === 3) {
+                        offset += 499 + 24; // First and fourth products
+                    } else if (i === 1 || i === 4) {
+                        offset += 500 + 24; // Second and fifth products
+                    } else {
+                        offset += 499 + 24; // Third and sixth products
+                    }
+                }
+                
+                carousel.style.transform = `translateX(-${offset}px)`;
+                
+                // Update button states
+                prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+                prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+                nextBtn.style.opacity = currentIndex === maxIndex ? '0.5' : '1';
+                nextBtn.style.pointerEvents = currentIndex === maxIndex ? 'none' : 'auto';
+            }
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+            
+            // Initialize
+            updateCarousel();
+        })();
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

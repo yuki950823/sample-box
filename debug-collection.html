@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DEBUG - Image Check</title>
+    <style>
+        body { background: #1b1e24; color: white; padding: 40px; font-family: Arial; }
+        .section { margin: 40px 0; padding: 20px; border: 3px solid yellow; }
+        img { max-width: 100%; border: 5px solid red; }
+        h2 { color: yellow; }
+    </style>
+</head>
+<body>
+    <h1>🔍 DEBUG: Image Loading Test</h1>
+    
+    <div class="section">
+        <h2>Section 1: Hero Image</h2>
+        <p>Path: assets/Images-collection/02-01.png?nocache=20251124073500</p>
+        <img src="assets/Images-collection/02-01.png?nocache=20251124073500" alt="Hero" onload="this.nextElementSibling.textContent='✅ LOADED SUCCESSFULLY'" onerror="this.nextElementSibling.textContent='❌ FAILED TO LOAD'">
+        <p style="font-size: 24px; font-weight: bold;"></p>
+    </div>
+    
+    <div class="section">
+        <h2>Section 2: Full-Width Overlay Image (THE PROBLEM ONE)</h2>
+        <p>Path: assets/Images-collection/02-01.png?nocache=20251124073500</p>
+        <div style="position: relative; height: 600px; overflow: hidden;">
+            <img src="assets/Images-collection/02-01.png?nocache=20251124073500" alt="Overlay" style="width: 100%; height: 100%; object-fit: cover;" onload="document.getElementById('status2').textContent='✅ IMAGE LOADED'" onerror="document.getElementById('status2').textContent='❌ IMAGE FAILED'">
+            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4);"></div>
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                <h1 style="color: white; font-size: 60px;">What's in this room?</h1>
+            </div>
+        </div>
+        <p id="status2" style="font-size: 24px; font-weight: bold; color: yellow;"></p>
+    </div>
+    
+    <div class="section">
+        <h2>For Comparison: Old Image (09.png)</h2>
+        <p>Path: assets/images/09.png</p>
+        <img src="assets/images/09.png" alt="Old">
+    </div>
+    
+    <script>
+        // Log all image loads
+        document.querySelectorAll('img').forEach((img, index) => {
+            img.addEventListener('load', () => {
+                console.log(`✅ Image ${index + 1} loaded:`, img.src);
+                console.log(`   Natural size: ${img.naturalWidth}x${img.naturalHeight}`);
+            });
+            img.addEventListener('error', () => {
+                console.log(`❌ Image ${index + 1} FAILED:`, img.src);
+            });
+        });
+    </script>
+</body>
+</html>
+
