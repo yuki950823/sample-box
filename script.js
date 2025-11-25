@@ -31,28 +31,79 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Trend pills interaction
-const trendButtons = document.querySelectorAll('button[class*="Air Conditioner"], button[class*="Flooring"], button[class*="Countertops"], button[class*="Appliances"], button[class*="Lighting"], button[class*="Plumbing"]');
-const trendsSection = document.querySelector('.trends-section');
-
-if (trendsSection) {
-    const allTrendButtons = trendsSection.querySelectorAll('button');
-    allTrendButtons.forEach((button, index) => {
-        if (index > 0 && index < 7) { // Skip first button (active) and non-trend buttons
-            button.addEventListener('click', function() {
-                allTrendButtons.forEach(btn => {
-                    if (btn.classList.contains('bg-brand-purple')) {
-                        btn.classList.remove('bg-brand-purple', 'hover:bg-indigo-700');
-                        btn.classList.add('bg-gray-800', 'border', 'border-gray-700', 'hover:bg-gray-700');
-                    }
-                });
-                
-                this.classList.remove('bg-gray-800', 'border', 'border-gray-700', 'hover:bg-gray-700');
-                this.classList.add('bg-brand-purple', 'hover:bg-indigo-700');
+// Apple-style trend capsule interaction with smooth expand/collapse
+document.addEventListener('DOMContentLoaded', () => {
+    const trendCapsules = document.querySelectorAll('.trend-capsule');
+    
+    // Track expanded state for each capsule
+    const capsuleStates = new Map();
+    
+    trendCapsules.forEach(capsule => {
+        // Check if already expanded (like Air Conditioner)
+        const currentHeight = capsule.style.getPropertyValue('--capsule-max-height');
+        const isInitiallyExpanded = currentHeight && currentHeight !== '48px';
+        capsuleStates.set(capsule, isInitiallyExpanded);
+        
+        capsule.addEventListener('click', function(e) {
+            // Prevent toggle if clicking on action buttons
+            if (e.target.tagName === 'BUTTON' && e.target !== this) return;
+            
+            const isCurrentlyExpanded = capsuleStates.get(capsule);
+            
+            // Collapse all other capsules first
+            trendCapsules.forEach(otherCapsule => {
+                if (otherCapsule !== capsule && capsuleStates.get(otherCapsule)) {
+                    collapseCapsule(otherCapsule);
+                }
             });
-        }
+            
+            // Toggle current capsule if not already expanded
+            if (!isCurrentlyExpanded) {
+                expandCapsule(capsule);
+            }
+        });
     });
-}
+    
+    function expandCapsule(capsule) {
+        // Calculate the actual content height
+        const content = capsule.querySelector('.trend-content');
+        const contentHeight = content.scrollHeight;
+        
+        // Set CSS custom properties for expanded state
+        capsule.style.setProperty('--capsule-bg-color', '#454dcc'); // brand-purple
+        capsule.style.setProperty('--capsule-max-height', `${contentHeight}px`);
+        
+        // Header fades out
+        capsule.style.setProperty('--header-opacity', '0');
+        capsule.style.setProperty('--header-pointer-events', 'none');
+        
+        // Content fades in and slides up
+        capsule.style.setProperty('--content-opacity', '1');
+        capsule.style.setProperty('--content-offset-y', '0px');
+        capsule.style.setProperty('--content-pointer-events', 'auto');
+        
+        // Update state
+        capsuleStates.set(capsule, true);
+    }
+    
+    function collapseCapsule(capsule) {
+        // Set CSS custom properties for collapsed state
+        capsule.style.setProperty('--capsule-bg-color', '#374151'); // gray-700
+        capsule.style.setProperty('--capsule-max-height', '48px');
+        
+        // Header fades in
+        capsule.style.setProperty('--header-opacity', '1');
+        capsule.style.setProperty('--header-pointer-events', 'auto');
+        
+        // Content fades out and slides down
+        capsule.style.setProperty('--content-opacity', '0');
+        capsule.style.setProperty('--content-offset-y', 'var(--capsule-content-move-y)');
+        capsule.style.setProperty('--content-pointer-events', 'none');
+        
+        // Update state
+        capsuleStates.set(capsule, false);
+    }
+});
 
 // Form submission
 const contactForm = document.querySelector('form');
