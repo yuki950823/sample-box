@@ -82,6 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!isCurrentlyExpanded) {
                 expandCapsule(capsule);
+                
+                // Change image based on category
+                const category = capsule.getAttribute('data-category');
+                const sectionTwoImage = document.getElementById('sectionTwoImage');
+                if (sectionTwoImage) {
+                    if (category === 'countertops') {
+                        sectionTwoImage.src = 'assets/images/countertop.png';
+                    } else if (category === 'air-conditioner') {
+                        sectionTwoImage.src = 'assets/images/08-update.png';
+                    }
+                }
             }
         });
     });
