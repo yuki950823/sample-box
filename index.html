@@ -55,39 +55,45 @@
 
         /* Apple-style animation variables for trend capsules */
         :root {
-            /* Timing variables */
-            --capsule-bg-duration: 500ms;
+            /* Background color transition */
+            --capsule-bg-duration: 400ms;
             --capsule-bg-delay: 0ms;
-            --capsule-height-duration: 650ms;
-            --capsule-height-delay: 0ms;
             
+            /* Width transition */
+            --capsule-width-duration: 400ms;
+            --capsule-width-delay: 0ms;
+            
+            /* Header fade */
             --capsule-header-fade-duration: 300ms;
             --capsule-header-fade-delay: 0ms;
             
+            /* Content fade and slide (like the card reference) */
             --capsule-content-fade-duration: 600ms;
-            --capsule-content-fade-delay: 350ms;
-            --capsule-content-slide-duration: 550ms;
-            --capsule-content-slide-delay: 300ms;
+            --capsule-content-fade-delay: 150ms;
+            --capsule-content-slide-duration: 400ms;
+            --capsule-content-slide-delay: 0ms;
             --capsule-content-move-y: 12px;
         }
 
-        /* Trend capsule base styles */
+        /* Trend capsule base styles - Apple-style animation */
         .trend-capsule {
             overflow: hidden;
             position: relative;
             cursor: pointer;
             border-radius: 16px;
-            background-color: var(--capsule-bg-color, #374151);
-            height: var(--capsule-max-height, 48px);
-            will-change: background-color, height;
-            transition:
-                background-color var(--capsule-bg-duration) cubic-bezier(0.32, 0.72, 0, 1) var(--capsule-bg-delay),
-                height var(--capsule-height-duration) cubic-bezier(0.32, 0.72, 0, 1) var(--capsule-height-delay);
+            background-color: var(--capsule-bg-color, rgba(52, 58, 76, 0.5));
+            width: fit-content;
+            transition: background-color var(--capsule-bg-duration) ease var(--capsule-bg-delay);
         }
         
         /* Smooth container transition to prevent bounce */
         .trend-capsule-container {
             will-change: height;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            height: fit-content;
+            align-self: start;
         }
         
         /* Ensure smooth layout shifts */
@@ -95,20 +101,27 @@
             transform: translateZ(0);
         }
 
+        /* Header - simple fade, positioned based on state */
         .trend-header {
             opacity: var(--header-opacity, 1);
             pointer-events: var(--header-pointer-events, auto);
-            transition:
-                opacity var(--capsule-header-fade-duration) cubic-bezier(0.32, 0.72, 0, 1) var(--capsule-header-fade-delay);
+            white-space: nowrap;
+            position: var(--header-position, relative);
+            /* When absolute, these classes handle positioning */
+            transition: opacity 0.3s ease;
         }
 
+        /* Content - EXACTLY like the card reference: only opacity and transform */
         .trend-content {
+            width: 560px; /* Fixed width when visible */
             opacity: var(--content-opacity, 0);
-            transform: translateY(var(--content-offset-y, var(--capsule-content-move-y)));
+            transform: translateY(var(--content-offset-y, 0px));
             pointer-events: var(--content-pointer-events, none);
-            transition:
-                opacity var(--capsule-content-fade-duration) cubic-bezier(0.32, 0.72, 0, 1) var(--capsule-content-fade-delay),
-                transform var(--capsule-content-slide-duration) cubic-bezier(0.32, 0.72, 0, 1) var(--capsule-content-slide-delay);
+            /* Position determines if it affects layout */
+            position: var(--content-position, absolute);
+            visibility: var(--content-visibility, hidden);
+            /* Smooth fade during clip animation */
+            transition: opacity 0.3s ease;
         }
     </style>
 </head>
@@ -370,34 +383,33 @@
                 We catch all latest trends
             </h2>
             <!-- Dark Card Container -->
-            <div class="bg-[#0D0F15] rounded-2xl p-12">
+            <div class="bg-[#0D0F15] rounded-2xl p-12 overflow-hidden">
                 <div class="grid grid-cols-[400px_1fr] gap-12 items-start">
                     <!-- Left Side: Expandable Capsule Buttons -->
-                    <div class="space-y-3 trend-capsule-container">
+                    <div class="space-y-3 trend-capsule-container self-start h-fit">
                         <!-- Air Conditioner -->
-                        <div class="trend-capsule" data-category="air-conditioner" style="--capsule-bg-color: #454dcc; --capsule-max-height: 220px; --header-opacity: 0; --header-pointer-events: none; --content-opacity: 1; --content-offset-y: 0px; --content-pointer-events: auto;">
-                            <div class="trend-header px-6 py-3 flex items-center gap-3 absolute top-0 left-0 w-full z-10">
+                        <div class="trend-capsule" data-category="air-conditioner" style="--capsule-bg-color: rgba(100, 116, 139, 0.5); --capsule-max-height: 48px; --header-opacity: 0; --header-pointer-events: none; --content-opacity: 1; --content-offset-y: 0px; --content-pointer-events: auto;">
+                            <div class="trend-header px-6 py-3 flex items-center gap-3 top-0 left-0 z-10">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0 text-white">
                                     <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
                                     <path d="M6 10h8M10 6v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                                 </svg>
                                 <span class="font-semibold text-base text-white">Air Conditioner</span>
                             </div>
-                            <div class="trend-content px-6 py-3 pb-6">
-                                <div class="h-12"></div>
-                                <p class="text-sm text-white/90 leading-relaxed mb-4">
+                            <div class="trend-content p-4">
+                                <p class="text-white/90 leading-relaxed mb-4" style="font-size: 20px;">
                                     This new air conditioner 26SCA-C Series has the latest technology applied which saves averagely $1,000 on electric bills. We provide professional install services on this latest sku.
                                 </p>
                                 <div class="flex gap-2">
-                                    <button class="px-4 py-2 bg-white text-brand-purple text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" onclick="event.stopPropagation()">See Models</button>
-                                    <button class="px-4 py-2 text-white text-sm font-semibold hover:text-white/80 transition-all" onclick="event.stopPropagation()">Save</button>
+                                    <button class="px-4 py-2 bg-white text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" style="color: #475569;" onclick="event.stopPropagation()">See Models</button>
+                                    <button class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation()">Save</button>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Flooring -->
-                        <div class="trend-capsule" data-category="flooring">
-                            <div class="trend-header px-6 py-3 flex items-center gap-3 absolute top-0 left-0 w-full z-10">
+                        <div class="trend-capsule" data-category="flooring" style="--capsule-bg-color: rgba(52, 58, 76, 0.5);">
+                            <div class="trend-header px-6 py-3 flex items-center gap-3 top-0 left-0 z-10">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0 text-white">
                                     <rect x="2" y="2" width="6" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/>
                                     <rect x="10" y="2" width="8" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
@@ -405,42 +417,42 @@
                                 </svg>
                                 <span class="font-semibold text-base text-white">Flooring</span>
                             </div>
-                            <div class="trend-content px-6 py-3 pb-6">
-                                <div class="h-12"></div>
-                                <p class="text-sm text-white/90 leading-relaxed mb-4">
+                            <div class="trend-content px-4 py-2 pb-4">
+                                <div class="h-2"></div>
+                                <p class="text-white/90 leading-relaxed mb-4" style="font-size: 20px;">
                                     Discover premium flooring options that combine durability with stunning aesthetics. Perfect for modern properties.
                                 </p>
                                 <div class="flex gap-2">
-                                    <button class="px-4 py-2 bg-white text-brand-purple text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" onclick="event.stopPropagation()">See Models</button>
-                                    <button class="px-4 py-2 text-white text-sm font-semibold hover:text-white/80 transition-all" onclick="event.stopPropagation()">Save</button>
+                                    <button class="px-4 py-2 bg-white text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" style="color: #475569;" onclick="event.stopPropagation()">See Models</button>
+                                    <button class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation()">Save</button>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Countertops -->
-                        <div class="trend-capsule" data-category="countertops">
-                            <div class="trend-header px-6 py-3 flex items-center gap-3 absolute top-0 left-0 w-full z-10">
+                        <div class="trend-capsule" data-category="countertops" style="--capsule-bg-color: rgba(52, 58, 76, 0.5);">
+                            <div class="trend-header px-6 py-3 flex items-center gap-3 top-0 left-0 z-10">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0 text-white">
                                     <rect x="2" y="8" width="16" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
                                     <path d="M5 16v2M15 16v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                                 </svg>
                                 <span class="font-semibold text-base text-white">Countertops</span>
                             </div>
-                            <div class="trend-content px-6 py-3 pb-6">
-                                <div class="h-12"></div>
-                                <p class="text-sm text-white/90 leading-relaxed mb-4">
+                            <div class="trend-content px-4 py-2 pb-4">
+                                <div class="h-2"></div>
+                                <p class="text-white/90 leading-relaxed mb-4" style="font-size: 20px;">
                                     Premium countertop materials that elevate your kitchen design with timeless elegance.
                                 </p>
                                 <div class="flex gap-2">
-                                    <button class="px-4 py-2 bg-white text-brand-purple text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" onclick="event.stopPropagation()">See Models</button>
-                                    <button class="px-4 py-2 text-white text-sm font-semibold hover:text-white/80 transition-all" onclick="event.stopPropagation()">Save</button>
+                                    <button class="px-4 py-2 bg-white text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" style="color: #475569;" onclick="event.stopPropagation()">See Models</button>
+                                    <button class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation()">Save</button>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Appliances -->
-                        <div class="trend-capsule" data-category="appliances">
-                            <div class="trend-header px-6 py-3 flex items-center gap-3 absolute top-0 left-0 w-full z-10">
+                        <div class="trend-capsule" data-category="appliances" style="--capsule-bg-color: rgba(52, 58, 76, 0.5);">
+                            <div class="trend-header px-6 py-3 flex items-center gap-3 top-0 left-0 z-10">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0 text-white">
                                     <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
                                     <circle cx="10" cy="8" r="2" stroke="currentColor" stroke-width="1.5"/>
@@ -448,50 +460,50 @@
                                 </svg>
                                 <span class="font-semibold text-base text-white">Appliances</span>
                             </div>
-                            <div class="trend-content px-6 py-3 pb-6">
-                                <div class="h-12"></div>
-                                <p class="text-sm text-white/90 leading-relaxed mb-4">
+                            <div class="trend-content px-4 py-2 pb-4">
+                                <div class="h-2"></div>
+                                <p class="text-white/90 leading-relaxed mb-4" style="font-size: 20px;">
                                     Energy-efficient appliances that reduce costs while enhancing your property's appeal.
                                 </p>
                                 <div class="flex gap-2">
-                                    <button class="px-4 py-2 bg-white text-brand-purple text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" onclick="event.stopPropagation()">See Models</button>
-                                    <button class="px-4 py-2 text-white text-sm font-semibold hover:text-white/80 transition-all" onclick="event.stopPropagation()">Save</button>
+                                    <button class="px-4 py-2 bg-white text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" style="color: #475569;" onclick="event.stopPropagation()">See Models</button>
+                                    <button class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation()">Save</button>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Lighting -->
-                        <div class="trend-capsule" data-category="lighting">
-                            <div class="trend-header px-6 py-3 flex items-center gap-3 absolute top-0 left-0 w-full z-10">
+                        <div class="trend-capsule" data-category="lighting" style="--capsule-bg-color: rgba(52, 58, 76, 0.5);">
+                            <div class="trend-header px-6 py-3 flex items-center gap-3 top-0 left-0 z-10">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0 text-white">
                                     <path d="M10 2v2M10 16v2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M2 10h2M16 10h2M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                                     <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/>
                                 </svg>
                                 <span class="font-semibold text-base text-white">Lighting</span>
                             </div>
-                            <div class="trend-content px-6 py-3 pb-6">
-                                <div class="h-12"></div>
-                                <p class="text-sm text-white/90 leading-relaxed mb-4">
+                            <div class="trend-content px-4 py-2 pb-4">
+                                <div class="h-2"></div>
+                                <p class="text-white/90 leading-relaxed mb-4" style="font-size: 20px;">
                                     Modern lighting solutions that create the perfect ambiance for any space.
                                 </p>
                                 <div class="flex gap-2">
-                                    <button class="px-4 py-2 bg-white text-brand-purple text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" onclick="event.stopPropagation()">See Models</button>
-                                    <button class="px-4 py-2 text-white text-sm font-semibold hover:text-white/80 transition-all" onclick="event.stopPropagation()">Save</button>
+                                    <button class="px-4 py-2 bg-white text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" style="color: #475569;" onclick="event.stopPropagation()">See Models</button>
+                                    <button class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation()">Save</button>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Plumbing -->
-                        <div class="trend-capsule" data-category="plumbing">
-                            <div class="trend-header px-6 py-3 flex items-center gap-3 absolute top-0 left-0 w-full z-10">
+                        <div class="trend-capsule" data-category="plumbing" style="--capsule-bg-color: rgba(52, 58, 76, 0.5);">
+                            <div class="trend-header px-6 py-3 flex items-center gap-3 top-0 left-0 z-10">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0 text-white">
                                     <path d="M6 14v4M14 14v4M6 2v8a4 4 0 008 0V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                                 </svg>
                                 <span class="font-semibold text-base text-white">Plumbing</span>
                             </div>
-                            <div class="trend-content px-6 py-3 pb-6">
-                                <div class="h-12"></div>
-                                <p class="text-sm text-white/90 leading-relaxed mb-4">
+                            <div class="trend-content px-4 py-2 pb-4">
+                                <div class="h-2"></div>
+                                <p class="text-white/90 leading-relaxed mb-4" style="font-size: 20px;">
                                     High-quality plumbing fixtures that combine functionality with contemporary design.
                         </p>
                         <div class="flex gap-2">
@@ -502,8 +514,8 @@
                         </div>
                     </div>
                     <!-- Right Side: Product Image -->
-                    <div class="rounded-xl overflow-hidden">
-                        <img src="assets/images/08.png" alt="Latest HVAC technology" class="w-full h-full object-cover">
+                    <div class="rounded-xl self-start">
+                        <img src="assets/images/08-update.png" alt="Latest HVAC technology" class="w-full h-auto object-cover" style="transform: translate(144px, 144px);">
                 </div>
                 </div>
             </div>

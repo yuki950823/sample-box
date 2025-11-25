@@ -34,74 +34,101 @@ window.addEventListener('scroll', () => {
 // Apple-style trend capsule interaction with smooth expand/collapse
 document.addEventListener('DOMContentLoaded', () => {
     const trendCapsules = document.querySelectorAll('.trend-capsule');
-    
-    // Track expanded state for each capsule
     const capsuleStates = new Map();
-    
+
     trendCapsules.forEach(capsule => {
-        // Check if already expanded (like Air Conditioner)
-        const currentHeight = capsule.style.getPropertyValue('--capsule-max-height');
-        const isInitiallyExpanded = currentHeight && currentHeight !== '48px';
+        const isInitiallyExpanded =
+            capsule.style.getPropertyValue('--content-opacity') === '1' ||
+            capsule.getAttribute('data-initial-expanded') === 'true';
+
         capsuleStates.set(capsule, isInitiallyExpanded);
-        
-        capsule.addEventListener('click', function(e) {
+
+        if (isInitiallyExpanded) {
+            // Set up expanded state immediately (no animation on load)
+            capsule.style.setProperty('--content-position', 'relative');
+            capsule.style.setProperty('--content-visibility', 'visible');
+            capsule.style.setProperty('--header-position', 'absolute');
+            capsule.style.setProperty('--capsule-bg-color', 'rgba(100, 116, 139, 0.5)');
+            capsule.style.setProperty('--header-opacity', '0');
+            capsule.style.setProperty('--header-pointer-events', 'none');
+            capsule.style.setProperty('--content-opacity', '1');
+            capsule.style.setProperty('--content-offset-y', '0px');
+            capsule.style.setProperty('--content-pointer-events', 'auto');
+        } else {
+            // Set up collapsed state immediately (no animation on load)
+            capsule.style.setProperty('--content-position', 'absolute');
+            capsule.style.setProperty('--content-visibility', 'hidden');
+            capsule.style.setProperty('--header-position', 'relative');
+            capsule.style.setProperty('--capsule-bg-color', 'rgba(52, 58, 76, 0.5)');
+            capsule.style.setProperty('--header-opacity', '1');
+            capsule.style.setProperty('--header-pointer-events', 'auto');
+            capsule.style.setProperty('--content-opacity', '0');
+            capsule.style.setProperty('--content-offset-y', '0px');
+            capsule.style.setProperty('--content-pointer-events', 'none');
+        }
+
+        capsule.addEventListener('click', (e) => {
             // Prevent toggle if clicking on action buttons
-            if (e.target.tagName === 'BUTTON' && e.target !== this) return;
-            
+            if (e.target.tagName === 'BUTTON' && e.target !== capsule) return;
+
             const isCurrentlyExpanded = capsuleStates.get(capsule);
-            
-            // Collapse all other capsules first
+
+            // Collapse all other capsules
             trendCapsules.forEach(otherCapsule => {
                 if (otherCapsule !== capsule && capsuleStates.get(otherCapsule)) {
                     collapseCapsule(otherCapsule);
                 }
             });
-            
-            // Toggle current capsule if not already expanded
+
             if (!isCurrentlyExpanded) {
                 expandCapsule(capsule);
             }
         });
     });
-    
-    function expandCapsule(capsule) {
-        // Calculate the actual content height
-        const content = capsule.querySelector('.trend-content');
-        const contentHeight = content.scrollHeight;
+
+    function expandCapsule(capsule, options = {}) {
+        // Background color changes
+        capsule.style.setProperty('--capsule-bg-color', 'rgba(100, 116, 139, 0.5)');
+
+        // Content becomes part of layout (position: relative) immediately
+        capsule.style.setProperty('--content-position', 'relative');
+        capsule.style.setProperty('--content-visibility', 'visible');
+        capsule.style.setProperty('--content-offset-y', '0px');
         
-        // Set CSS custom properties for expanded state
-        capsule.style.setProperty('--capsule-bg-color', '#454dcc'); // brand-purple
-        capsule.style.setProperty('--capsule-max-height', `${contentHeight}px`);
-        
-        // Header fades out
+        // Header fades out and becomes absolute overlay
+        capsule.style.setProperty('--header-position', 'absolute');
         capsule.style.setProperty('--header-opacity', '0');
         capsule.style.setProperty('--header-pointer-events', 'none');
-        
-        // Content fades in and slides up
+
+        // Fade in content
         capsule.style.setProperty('--content-opacity', '1');
-        capsule.style.setProperty('--content-offset-y', '0px');
         capsule.style.setProperty('--content-pointer-events', 'auto');
-        
-        // Update state
-        capsuleStates.set(capsule, true);
+
+        if (!options.skipStateUpdate) {
+            capsuleStates.set(capsule, true);
+        }
     }
-    
-    function collapseCapsule(capsule) {
-        // Set CSS custom properties for collapsed state
-        capsule.style.setProperty('--capsule-bg-color', '#374151'); // gray-700
-        capsule.style.setProperty('--capsule-max-height', '48px');
-        
+
+    function collapseCapsule(capsule, options = {}) {
+        // Background color changes
+        capsule.style.setProperty('--capsule-bg-color', 'rgba(52, 58, 76, 0.5)');
+
+        // Fade out content immediately
+        capsule.style.setProperty('--content-opacity', '0');
+        capsule.style.setProperty('--content-pointer-events', 'none');
+
         // Header fades in
         capsule.style.setProperty('--header-opacity', '1');
         capsule.style.setProperty('--header-pointer-events', 'auto');
-        
-        // Content fades out and slides down
-        capsule.style.setProperty('--content-opacity', '0');
-        capsule.style.setProperty('--content-offset-y', 'var(--capsule-content-move-y)');
-        capsule.style.setProperty('--content-pointer-events', 'none');
-        
-        // Update state
-        capsuleStates.set(capsule, false);
+
+        // Switch layout immediately - this makes capsule snap to header height
+        capsule.style.setProperty('--header-position', 'relative');
+        capsule.style.setProperty('--content-position', 'absolute');
+        capsule.style.setProperty('--content-visibility', 'hidden');
+
+        if (!options.skipStateUpdate) {
+            capsuleStates.set(capsule, false);
+        }
     }
 });
 
