@@ -94,6 +94,8 @@
             align-items: flex-start;
             height: fit-content;
             align-self: start;
+            position: relative;
+            z-index: 10;
         }
         
         /* Ensure smooth layout shifts */
@@ -280,23 +282,21 @@
     <!-- Smart Jobs Section -->
     <section class="bg-brand-dark py-24">
         <div class="max-w-[1440px] mx-auto px-[104px]">
-            <div class="grid grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white mb-6">
-                        Streamline Your Workflow with Smart Jobs
+            <div class="flex flex-col gap-12">
+                <div class="max-w-[604px]">
+                    <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white mb-8">
+                        Smart Jobs + Reliable Pros: The Easy Way to Plan and Install
                     </h2>
-                    <p class="text-[18px] leading-7 text-neutral-300 mb-8">
+                    <p class="text-[20px] leading-7 text-neutral-300 mb-8">
                         Purchase the right products for your properties using data-driven insights, cut costs and stay on schedule.
                     </p>
-                    <button class="px-5 py-2 bg-white text-brand-dark font-bold text-base rounded-lg hover:bg-gray-100 transition-all">
-                        Learn More
+                    <button class="px-5 py-2 bg-brand-purple text-white font-bold text-base rounded-lg hover:opacity-90 transition-all">
+                        Interested in Installation?
                     </button>
                 </div>
-                <div class="relative">
-                    <div class="bg-gray-800 rounded-2xl p-8 shadow-2xl">
-                        <div class="bg-white rounded-lg overflow-hidden">
-                            <img src="assets/images/05.png" alt="Dashboard preview" class="w-full h-auto">
-                        </div>
+                <div class="bg-[#0d0f15] rounded-[24px] py-24 flex items-center justify-center">
+                    <div class="relative">
+                        <img src="assets/images/Mac-Mockup.png" alt="Smart Jobs Dashboard" class="w-full h-auto">
                     </div>
                 </div>
             </div>
@@ -401,8 +401,9 @@
                                     This new air conditioner 26SCA-C Series has the latest technology applied which saves averagely $1,000 on electric bills. We provide professional install services on this latest sku.
                                 </p>
                                 <div class="flex gap-2">
-                                    <button class="px-4 py-2 bg-white text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all" style="color: #475569;" onclick="event.stopPropagation()">See Models</button>
-                                    <button class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation()">Save</button>
+                                    <button id="btnAirConditioner" class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #FFFFFF; color: #475569;" onclick="event.stopPropagation(); switchACImage('air-conditioner')">Air conditioner</button>
+                                    <button id="btnFurnace" class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation(); switchACImage('furnace')">Furnace</button>
+                                    <button id="btnCoil" class="px-4 py-2 text-sm font-semibold rounded-lg transition-all" style="background-color: #64748B; color: #FFFFFF;" onclick="event.stopPropagation(); switchACImage('coil')">Coil</button>
                                 </div>
                             </div>
                         </div>
@@ -514,8 +515,8 @@
                         </div>
                     </div>
                     <!-- Right Side: Product Image -->
-                    <div class="rounded-xl self-start" style="width: 584px; height: 584px; display: flex; align-items: center; justify-content: center;">
-                        <img id="sectionTwoImage" src="assets/images/08-update.png" alt="Latest HVAC technology" class="max-w-full max-h-full object-contain" style="transform: translate(144px, 144px);">
+                    <div class="rounded-xl self-start" style="width: 584px; height: 584px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 0;">
+                        <img id="sectionTwoImage" src="assets/images/08-update.png" alt="Latest HVAC technology" class="max-w-full max-h-full object-contain" style="transform: translate(144px, 144px); transition: transform 0.45s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.3s ease;">
                 </div>
                 </div>
             </div>

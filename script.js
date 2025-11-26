@@ -31,6 +31,54 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
+// Function to switch Air Conditioner images and button states
+function switchACImage(type) {
+    const sectionTwoImage = document.getElementById('sectionTwoImage');
+    const btnAirConditioner = document.getElementById('btnAirConditioner');
+    const btnFurnace = document.getElementById('btnFurnace');
+    const btnCoil = document.getElementById('btnCoil');
+    
+    if (!sectionTwoImage) return;
+    
+    // Reset all buttons to inactive state (gray background)
+    btnAirConditioner.style.backgroundColor = '#64748B';
+    btnAirConditioner.style.color = '#FFFFFF';
+    
+    btnFurnace.style.backgroundColor = '#64748B';
+    btnFurnace.style.color = '#FFFFFF';
+    
+    btnCoil.style.backgroundColor = '#64748B';
+    btnCoil.style.color = '#FFFFFF';
+    
+    // Fade out current image
+    sectionTwoImage.style.opacity = '0';
+    
+    // After fade out, change image and set active button
+    setTimeout(() => {
+        if (type === 'air-conditioner') {
+            sectionTwoImage.src = 'assets/images/08-update.png';
+            sectionTwoImage.style.transform = 'translate(144px, 144px)';
+            btnAirConditioner.style.backgroundColor = '#FFFFFF';
+            btnAirConditioner.style.color = '#475569';
+        } else if (type === 'furnace') {
+            sectionTwoImage.src = 'assets/images/furnace.png';
+            sectionTwoImage.style.transform = 'translate(144px, 144px) scale(1.2)';
+            btnFurnace.style.backgroundColor = '#FFFFFF';
+            btnFurnace.style.color = '#475569';
+        } else if (type === 'coil') {
+            sectionTwoImage.src = 'assets/images/coil.png';
+            sectionTwoImage.style.transform = 'translate(144px, 144px) scale(1.5)';
+            btnCoil.style.backgroundColor = '#FFFFFF';
+            btnCoil.style.color = '#475569';
+        }
+        
+        // Fade in new image
+        requestAnimationFrame(() => {
+            sectionTwoImage.style.opacity = '1';
+        });
+    }, 300);
+}
+
 // Apple-style trend capsule interaction with smooth expand/collapse
 document.addEventListener('DOMContentLoaded', () => {
     const trendCapsules = document.querySelectorAll('.trend-capsule');
@@ -83,15 +131,44 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isCurrentlyExpanded) {
                 expandCapsule(capsule);
                 
-                // Change image based on category
+                // Change image based on category with smooth transition
                 const category = capsule.getAttribute('data-category');
                 const sectionTwoImage = document.getElementById('sectionTwoImage');
-                if (sectionTwoImage) {
-                    if (category === 'countertops') {
-                        sectionTwoImage.src = 'assets/images/countertop.png';
-                    } else if (category === 'air-conditioner') {
-                        sectionTwoImage.src = 'assets/images/08-update.png';
-                    }
+                if (sectionTwoImage && (category === 'countertops' || category === 'air-conditioner')) {
+                    // Fade out current image
+                    sectionTwoImage.style.opacity = '0';
+                    
+                    // After fade out, change image and transform
+                    setTimeout(() => {
+                        if (category === 'countertops') {
+                            sectionTwoImage.src = 'assets/images/countertop.png';
+                            sectionTwoImage.style.transform = 'translate(480px, 144px) scale(2.1)';
+                        } else if (category === 'air-conditioner') {
+                            sectionTwoImage.src = 'assets/images/08-update.png';
+                            sectionTwoImage.style.transform = 'translate(144px, 144px)';
+                            // Set Air Conditioner button as active
+                            const btnAirConditioner = document.getElementById('btnAirConditioner');
+                            const btnFurnace = document.getElementById('btnFurnace');
+                            const btnCoil = document.getElementById('btnCoil');
+                            if (btnAirConditioner) {
+                                btnAirConditioner.style.backgroundColor = '#FFFFFF';
+                                btnAirConditioner.style.color = '#475569';
+                            }
+                            if (btnFurnace) {
+                                btnFurnace.style.backgroundColor = '#64748B';
+                                btnFurnace.style.color = '#FFFFFF';
+                            }
+                            if (btnCoil) {
+                                btnCoil.style.backgroundColor = '#64748B';
+                                btnCoil.style.color = '#FFFFFF';
+                            }
+                        }
+                        
+                        // Fade in new image
+                        requestAnimationFrame(() => {
+                            sectionTwoImage.style.opacity = '1';
+                        });
+                    }, 300); // Match opacity transition duration
                 }
             }
         });
