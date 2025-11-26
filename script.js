@@ -84,14 +84,14 @@ function switchACImage(type) {
 document.addEventListener('DOMContentLoaded', () => {
     const trendCapsules = document.querySelectorAll('.trend-capsule');
     const capsuleStates = new Map();
-
+    
     trendCapsules.forEach(capsule => {
         const isInitiallyExpanded =
             capsule.style.getPropertyValue('--content-opacity') === '1' ||
             capsule.getAttribute('data-initial-expanded') === 'true';
 
         capsuleStates.set(capsule, isInitiallyExpanded);
-
+        
         if (isInitiallyExpanded) {
             // Set up expanded state immediately (no animation on load)
             capsule.style.setProperty('--content-position', 'relative');
@@ -119,16 +119,16 @@ document.addEventListener('DOMContentLoaded', () => {
         capsule.addEventListener('click', (e) => {
             // Prevent toggle if clicking on action buttons
             if (e.target.tagName === 'BUTTON' && e.target !== capsule) return;
-
+            
             const isCurrentlyExpanded = capsuleStates.get(capsule);
-
+            
             // Collapse all other capsules
             trendCapsules.forEach(otherCapsule => {
                 if (otherCapsule !== capsule && capsuleStates.get(otherCapsule)) {
                     collapseCapsule(otherCapsule);
                 }
             });
-
+            
             if (!isCurrentlyExpanded) {
                 expandCapsule(capsule);
                 
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
+    
     function expandCapsule(capsule, options = {}) {
         // Background color changes
         capsule.style.setProperty('--capsule-bg-color', 'rgba(100, 116, 139, 0.5)');
@@ -188,11 +188,11 @@ document.addEventListener('DOMContentLoaded', () => {
         capsule.style.setProperty('--header-position', 'absolute');
         capsule.style.setProperty('--header-opacity', '0');
         capsule.style.setProperty('--header-pointer-events', 'none');
-
+        
         // Fade in content
         capsule.style.setProperty('--content-opacity', '1');
         capsule.style.setProperty('--content-pointer-events', 'auto');
-
+        
         if (!options.skipStateUpdate) {
             capsuleStates.set(capsule, true);
         }
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Header fades in
         capsule.style.setProperty('--header-opacity', '1');
         capsule.style.setProperty('--header-pointer-events', 'auto');
-
+        
         // Switch layout immediately - this makes capsule snap to header height
         capsule.style.setProperty('--header-position', 'relative');
         capsule.style.setProperty('--content-position', 'absolute');
@@ -243,6 +243,237 @@ document.addEventListener('DOMContentLoaded', () => {
             if (i === 300) option.selected = true; // Default to $300
             rentIncreaseSelect.appendChild(option);
         }
+    }
+
+    // Calculator function
+    function calculateROI() {
+        const vacancyDays = parseInt(vacancyTimeSelect.value) || 14;
+        const monthlyRentIncrease = parseInt(rentIncreaseSelect.value) || 300;
+        
+        // Assumed average renovation cost
+        const renovationCost = 6000;
+        
+        // Calculate annual rent increase
+        const annualRentIncrease = monthlyRentIncrease * 12;
+        
+        // Calculate lost revenue during vacancy period
+        const lostRevenue = (monthlyRentIncrease * vacancyDays) / 30;
+        
+        // Calculate net annual return
+        const netAnnualReturn = annualRentIncrease - lostRevenue;
+        
+        // Calculate ROI percentage
+        const roiPercentage = ((netAnnualReturn / renovationCost) * 100).toFixed(2);
+        
+        // Calculate payback period in months (including vacancy impact)
+        const effectiveMonthlyReturn = netAnnualReturn / 12;
+        const paybackMonths = Math.ceil(renovationCost / effectiveMonthlyReturn);
+        
+        // Update the UI
+        const roiElement = document.getElementById('roiPercentage');
+        const paybackElement = document.getElementById('paybackPeriod');
+        
+        if (roiElement) {
+            roiElement.textContent = `${roiPercentage}%`;
+        }
+        
+        if (paybackElement) {
+            paybackElement.textContent = `Estimate payback period ${paybackMonths} Months`;
+        }
+    }
+
+    // Add change listeners to inputs
+    if (vacancyTimeSelect) {
+        vacancyTimeSelect.addEventListener('change', calculateROI);
+    }
+    
+    if (rentIncreaseSelect) {
+        rentIncreaseSelect.addEventListener('change', calculateROI);
+    }
+
+    // Calculate initial values on page load
+    calculateROI();
+
+    // Benefits Image Carousel
+    const benefitsCarousel = document.getElementById('benefitsCarousel');
+    const prevBenefitsBtn = document.getElementById('prevBenefitsBtn');
+    const nextBenefitsBtn = document.getElementById('nextBenefitsBtn');
+    
+    if (benefitsCarousel && prevBenefitsBtn && nextBenefitsBtn) {
+        let currentIndex = 0;
+        const totalImages = 8;
+        const imageWidth = 636; // Width of each image
+        const gap = 24; // Gap between images
+        const visibleImages = 2; // Show 2 images at a time
+        const maxIndex = totalImages - visibleImages;
+
+        function updateBenefitsCarousel() {
+            const offset = currentIndex * (imageWidth + gap);
+            benefitsCarousel.style.transform = `translateX(-${offset}px)`;
+            
+            // Update button states
+            prevBenefitsBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+            prevBenefitsBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+            nextBenefitsBtn.style.opacity = currentIndex === maxIndex ? '0.5' : '1';
+            nextBenefitsBtn.style.pointerEvents = currentIndex === maxIndex ? 'none' : 'auto';
+        }
+
+        nextBenefitsBtn.addEventListener('click', function() {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateBenefitsCarousel();
+            }
+        });
+
+        prevBenefitsBtn.addEventListener('click', function() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateBenefitsCarousel();
+            }
+        });
+
+        // Initialize
+        updateBenefitsCarousel();
+    }
+
+    // Spotlight Section Scroll Effect
+    const spotlightSection = document.getElementById('spotlightSection');
+    
+    if (spotlightSection) {
+        const images = [
+            document.getElementById('spotlightImage1'),
+            document.getElementById('spotlightImage2'),
+            document.getElementById('spotlightImage3'),
+            document.getElementById('spotlightImage4')
+        ];
+        
+        const contentData = [
+            {
+                category: 'Countertops',
+                title: 'MSI - 108x42 Prefab Countertop',
+                sku: 'SKU: PSL-CALACATTAAZAI10842IS',
+                description: 'Provide homeowners with customized product recommendations to boost satisfaction, reduce returns, and drive upsells. Empower customers to make informed buying decisions, increasing conversions and giving you more control over transactions.'
+            },
+            {
+                category: 'Premium Quality',
+                title: 'Elegant Marble Finish',
+                sku: 'SKU: PSL-MARBLE-ELEGANT-01',
+                description: 'Experience the luxury of premium marble craftsmanship. Our countertops feature stunning natural patterns that elevate any space while providing exceptional durability for long-lasting beauty.'
+            },
+            {
+                category: 'Design Excellence',
+                title: 'Modern Kitchen Solutions',
+                sku: 'SKU: PSL-MODERN-KITCHEN-02',
+                description: 'Transform your kitchen with our cutting-edge design solutions. Seamlessly integrate style and functionality with countertops that complement contemporary aesthetics and meet professional standards.'
+            },
+            {
+                category: 'Installation Ready',
+                title: 'Easy-Install Prefab System',
+                sku: 'SKU: PSL-PREFAB-INSTALL-03',
+                description: 'Save time and reduce costs with our pre-fabricated countertop system. Designed for quick installation without compromising quality, perfect for property managers looking to maximize efficiency.'
+            }
+        ];
+        
+        const categoryEl = document.getElementById('spotlightCategory');
+        const titleEl = document.getElementById('spotlightTitle');
+        const skuEl = document.getElementById('spotlightSKU');
+        const descriptionEl = document.getElementById('spotlightDescription');
+        const contentEl = document.getElementById('spotlightContent');
+        
+        let currentSpotlight = 0;
+        let isTransitioning = false;
+        let isInitialized = false;
+        
+        function updateSpotlight(index, immediate = false) {
+            if (index === currentSpotlight && isInitialized && !immediate) return;
+            if (isTransitioning && !immediate) return;
+            
+            // For immediate updates (like initialization), skip animation
+            if (immediate) {
+                images.forEach((img, i) => {
+                    img.style.opacity = i === index ? '1' : '0';
+                });
+                
+                categoryEl.textContent = contentData[index].category;
+                titleEl.textContent = contentData[index].title;
+                skuEl.textContent = contentData[index].sku;
+                descriptionEl.textContent = contentData[index].description;
+                
+                currentSpotlight = index;
+                isInitialized = true;
+                return;
+            }
+            
+            isTransitioning = true;
+            
+            // Fade out content
+            contentEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                // Hide all images
+                images.forEach((img, i) => {
+                    img.style.opacity = i === index ? '1' : '0';
+                });
+                
+                // Update content
+                categoryEl.textContent = contentData[index].category;
+                titleEl.textContent = contentData[index].title;
+                skuEl.textContent = contentData[index].sku;
+                descriptionEl.textContent = contentData[index].description;
+                
+                // Fade in content
+                contentEl.style.opacity = '1';
+                
+                currentSpotlight = index;
+                isInitialized = true;
+                
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 300);
+            }, 300);
+        }
+        
+        function handleScroll() {
+            const rect = spotlightSection.getBoundingClientRect();
+            const sectionHeight = spotlightSection.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            
+            // Only activate when section is in view
+            if (rect.top > viewportHeight) {
+                // Section hasn't reached viewport yet, ensure first image is ready
+                if (currentSpotlight !== 0) {
+                    updateSpotlight(0);
+                }
+                return;
+            }
+            
+            if (rect.bottom < 0) {
+                // Section has passed, no action needed
+                return;
+            }
+            
+            // Calculate scroll progress through the section (0 to 1)
+            // Progress starts when section reaches top of viewport
+            const scrollProgress = Math.max(0, Math.min(1, -rect.top / (sectionHeight - viewportHeight)));
+            
+            // Determine which image to show based on scroll progress
+            let targetIndex;
+            if (scrollProgress < 0.25) {
+                targetIndex = 0;
+            } else if (scrollProgress < 0.5) {
+                targetIndex = 1;
+            } else if (scrollProgress < 0.75) {
+                targetIndex = 2;
+        } else {
+                targetIndex = 3;
+            }
+            
+            updateSpotlight(targetIndex);
+        }
+        
+        window.addEventListener('scroll', handleScroll);
+        // Set initial state immediately without animation
+        updateSpotlight(0, true);
     }
 });
 
