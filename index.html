@@ -125,6 +125,20 @@
             /* Smooth fade during clip animation */
             transition: opacity 0.3s ease;
         }
+
+        /* Calculator dropdown styling to match Figma */
+        #vacancyTime option,
+        #rentIncrease option {
+            background-color: #1e293b;
+            color: white;
+            padding: 8px;
+        }
+
+        #vacancyTime:focus,
+        #rentIncrease:focus {
+            outline: none;
+            border-color: #cbd5e1;
+        }
     </style>
 </head>
 <body class="bg-brand-dark text-white antialiased">
@@ -304,73 +318,94 @@
     </section>
 
     <!-- Calculator Section -->
+    <!-- Calculator Section -->
     <section class="bg-brand-dark py-24">
         <div class="max-w-[1440px] mx-auto px-[104px]">
-            <div class="grid grid-cols-2 gap-12 mb-16">
-                <div>
-                    <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white">
-                        Calculate the Potential Earnings
-                    </h2>
-                </div>
-                <div>
-                    <p class="text-base text-neutral-300 mb-6">
+            <!-- Title + Inputs -->
+            <div class="flex items-start justify-between mb-16">
+                <h2 class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-neutral-300 w-[607px]">
+                    Calculate the Potential <span class="text-white">Earnings</span>
+                </h2>
+                <div class="flex flex-col gap-[18px] w-[395px]">
+                    <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
                         Give the best est and we'll calculate what you get
                     </p>
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-white mb-2">Property Value</label>
-                            <input type="text" placeholder="Enter property value" class="w-full px-4 py-4 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-brand-purple transition-colors">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-white mb-2">Renovation Budget</label>
-                            <input type="text" placeholder="Enter renovation budget" class="w-full px-4 py-4 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-brand-purple transition-colors">
-                        </div>
+                    <div class="space-y-1">
+                        <label class="block text-sm font-semibold text-white">Est. Vacancy Time</label>
+                        <select id="vacancyTime" class="w-full border border-slate-800 rounded-lg px-3 py-2 h-[40px] bg-[#1e293b] text-sm font-semibold text-white appearance-none cursor-pointer" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg width=%2720%27 height=%2720%27 viewBox=%270 0 20 20%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M7.5 7.5L10 10L12.5 7.5%27 stroke=%27white%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center;">
+                        </select>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="block text-sm font-semibold text-white">Potential Rent Increase</label>
+                        <select id="rentIncrease" class="w-full border border-slate-800 rounded-lg px-3 py-2 h-[40px] bg-[#1e293b] text-sm font-semibold text-white appearance-none cursor-pointer" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg width=%2720%27 height=%2720%27 viewBox=%270 0 20 20%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M7.5 7.5L10 10L12.5 7.5%27 stroke=%27white%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center;">
+                        </select>
                     </div>
                 </div>
             </div>
 
             <!-- Metrics Grid -->
-            <div class="grid grid-cols-3 gap-6 mb-16">
-                <div class="bg-gray-800 rounded-xl p-8 flex flex-col items-center text-center min-h-[305px]">
-                    <img src="assets/images/06.png" alt="Modern property" class="w-full h-48 object-cover rounded-lg mb-6">
-                    <h3 class="text-lg font-semibold text-white">Fresh, modern, trend-forward properties</h3>
+            <div class="flex flex-col gap-6 mb-16">
+                <!-- First Row -->
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-[#0d0f15] rounded-[24px] h-[305px] overflow-hidden relative">
+                        <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-neutral-400 text-center absolute top-[42px] left-1/2 transform -translate-x-1/2 w-[312px]">
+                            Fresh, modern, trend-forward properties
+                        </p>
+                        <img src="assets/images/06.png" alt="Modern countertop" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full mix-blend-lighten">
+                    </div>
+                    <div class="bg-[#0d0f15] rounded-[24px] h-[305px] flex flex-col items-center justify-center text-center relative">
+                        <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-neutral-400 mb-2">Up to</p>
+                        <p class="futura-heavy text-[60px] leading-[64px] tracking-[-1.1px] text-white">12.40%</p>
+                        <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-neutral-400 mt-2">ROI Increase</p>
+                    </div>
+                    <div class="bg-[#0d0f15] rounded-[24px] h-[305px] flex flex-col items-center justify-center text-center p-8">
+                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" class="mb-3">
+                            <circle cx="50" cy="50" r="43.75" stroke="white" stroke-width="2.5"/>
+                            <path d="M50 28.125V50L64.625 64.625" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                        <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-neutral-400">
+                            Estimate payback period 20 Months
+                        </p>
+                    </div>
                 </div>
-                <div class="bg-brand-purple rounded-xl p-8 flex flex-col items-center justify-center text-center min-h-[305px]">
-                    <p class="text-lg text-white mb-2">Up to</p>
-                    <p class="text-[64px] font-black text-white leading-none mb-2">12.40%</p>
-                    <p class="text-lg text-white">ROI Increase</p>
-                </div>
-                <div class="bg-gray-800 rounded-xl p-8 flex flex-col items-center justify-center text-center min-h-[305px]">
-                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" class="mb-6">
-                        <circle cx="50" cy="50" r="45" stroke="#454dcc" stroke-width="2"/>
-                        <path d="M50 25V50L70 70" stroke="#454dcc" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <h3 class="text-lg font-semibold text-white">Estimate payback period 20 Months</h3>
-                </div>
-                <div class="bg-gray-800 rounded-xl p-8 flex flex-col items-center justify-center text-center min-h-[305px]">
-                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" class="mb-6">
-                        <path d="M50 20L61 45H85L66 60L73 85L50 70L27 85L34 60L15 45H39L50 20Z" stroke="#454dcc" stroke-width="2" fill="none"/>
-                    </svg>
-                    <h3 class="text-lg font-semibold text-white">Happier tenants who stay longer</h3>
-                </div>
-                <div class="bg-gray-800 rounded-xl p-8 flex flex-col items-center justify-center text-center min-h-[305px]">
-                    <h3 class="text-2xl font-bold text-white mb-6">Less maintenance costs</h3>
-                    <img src="assets/images/07.png" alt="Tools" class="w-full h-32 object-cover rounded-lg">
-                </div>
-                <div class="bg-gray-800 rounded-xl p-8 flex flex-col items-center justify-center text-center min-h-[305px]">
-                    <h3 class="text-2xl font-bold text-white mb-6">Higher Property Value</h3>
-                    <div class="w-full h-32 bg-gradient-to-t from-brand-purple/30 to-transparent rounded-lg"></div>
+                
+                <!-- Second Row -->
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-[#0d0f15] rounded-[24px] h-[305px] flex flex-col items-center justify-center text-center p-8">
+                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" class="mb-3">
+                            <path d="M50 18.75L62.5 43.75H87.5L68.125 58.75L75 87.5L50 68.75L25 87.5L31.875 58.75L12.5 43.75H37.5L50 18.75Z" stroke="white" stroke-width="2.5" fill="none"/>
+                        </svg>
+                        <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-neutral-400">
+                            Happier tenants who stay longer
+                        </p>
+                    </div>
+                    <div class="bg-[#0d0f15] rounded-[24px] h-[305px] relative overflow-hidden">
+                        <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-[#a9b6c9] text-center absolute left-[197.33px] top-[108.81px] w-[269px] transform -translate-x-1/2 -translate-y-full">
+                            Less maintenance costs
+                        </p>
+                        <img src="assets/images/screwdriver.png" alt="Power tool" class="absolute left-[52.56px] top-[143.5px] w-[275.015px] h-[234.631px] object-cover">
+                    </div>
+                    <div class="bg-[#0d0f15] rounded-[24px] h-[305px] relative overflow-hidden">
+                        <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-[#a9b6c9] text-center absolute left-[190.76px] top-[79.22px] w-[312.242px] transform -translate-x-1/2 -translate-y-full">
+                            Higher Property Value
+                        </p>
+                        <img src="assets/images/growing-graph.png" alt="Growing graph" class="absolute left-[51.89px] top-[133.17px] w-[274.889px] h-[124.746px] object-contain">
+                    </div>
                 </div>
             </div>
 
             <!-- CTA -->
-            <div class="bg-gray-800 rounded-2xl p-16 text-center">
-                <div class="max-w-2xl mx-auto mb-8">
-                    <h3 class="text-4xl font-bold text-white mb-4">Interested in saving more for your properties?</h3>
-                    <p class="text-lg text-neutral-300">Our team already helping thousands clients save $50,000 annually on HVAC, appliances, and other products.</p>
+            <div class="flex flex-col gap-8 items-center justify-center text-center">
+                <div class="flex flex-col gap-2 w-[604px]">
+                    <p class="futura-demi text-[30px] leading-[36px] tracking-[-0.3px] text-white">
+                        Interested in saving more for your properties?
+                    </p>
+                    <p class="text-[20px] leading-7 text-neutral-300">
+                        Our team already helping thousands clients save $50,000 annually on HVAC, appliances, and other products.
+                    </p>
                 </div>
-                <button class="px-8 py-3 bg-brand-purple text-white font-bold text-base rounded-lg hover:bg-indigo-700 transition-all">
-                    Get Started Now
+                <button class="px-5 py-2 bg-brand-purple text-white font-bold text-base rounded-lg hover:opacity-90 transition-all h-[48px]">
+                    Book a Demo
                 </button>
             </div>
         </div>

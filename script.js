@@ -31,6 +31,7 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
+
 // Function to switch Air Conditioner images and button states
 function switchACImage(type) {
     const sectionTwoImage = document.getElementById('sectionTwoImage');
@@ -216,6 +217,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!options.skipStateUpdate) {
             capsuleStates.set(capsule, false);
+        }
+    }
+
+    // Populate Calculator Dropdowns
+    // Populate Vacancy Time dropdown (1 to 150 days)
+    const vacancyTimeSelect = document.getElementById('vacancyTime');
+    if (vacancyTimeSelect) {
+        for (let i = 1; i <= 150; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `${i} Day${i > 1 ? 's' : ''}`;
+            if (i === 14) option.selected = true; // Default to 14 days
+            vacancyTimeSelect.appendChild(option);
+        }
+    }
+
+    // Populate Rent Increase dropdown ($50 to $10,000 in $50 increments)
+    const rentIncreaseSelect = document.getElementById('rentIncrease');
+    if (rentIncreaseSelect) {
+        for (let i = 50; i <= 10000; i += 50) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `$${i.toFixed(2)}`;
+            if (i === 300) option.selected = true; // Default to $300
+            rentIncreaseSelect.appendChild(option);
         }
     }
 });
