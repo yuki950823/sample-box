@@ -1,3 +1,95 @@
+// Hero PNG Sequence Animation
+(function() {
+    const heroSequenceImg = document.getElementById('heroSequence');
+    if (!heroSequenceImg) return;
+
+    const totalFrames = 192; // Hero-video000.png to Hero-video191.png
+    const baseFPS = 45; // 1.5x speed (30 * 1.5 = 45)
+    const basePath = 'assets/hero-Video-png/Hero-video';
+    const animationDuration = (totalFrames / baseFPS) * 1000; // Total duration in ms
+    
+    let frames = [];
+    let isPlaying = false;
+    let animationId = null;
+    let startTime = 0;
+
+    // Ease-out function (fast first, then slower) - cubic
+    function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3); // Cubic ease-out for more pronounced effect
+    }
+
+    // Preload all frames
+    function preloadFrames() {
+        return new Promise((resolve) => {
+            let loadedCount = 0;
+            
+            for (let i = 0; i < totalFrames; i++) {
+                const img = new Image();
+                const frameNum = i.toString().padStart(3, '0');
+                img.src = `${basePath}${frameNum}.png`;
+                
+                img.onload = () => {
+                    loadedCount++;
+                    if (loadedCount === totalFrames) {
+                        resolve();
+                    }
+                };
+                
+                img.onerror = () => {
+                    loadedCount++;
+                    if (loadedCount === totalFrames) {
+                        resolve();
+                    }
+                };
+                
+                frames[i] = img;
+            }
+        });
+    }
+
+    // Play the sequence with easing
+    function playSequence(timestamp) {
+        if (!isPlaying) return;
+
+        if (startTime === 0) {
+            startTime = timestamp;
+        }
+
+        const elapsed = timestamp - startTime;
+        const linearProgress = Math.min(elapsed / animationDuration, 1);
+        
+        // Apply ease-out curve (fast first, then slower)
+        const easedProgress = easeOut(linearProgress);
+        
+        // Calculate current frame based on eased progress
+        const currentFrame = Math.min(Math.floor(easedProgress * totalFrames), totalFrames - 1);
+        
+        heroSequenceImg.src = frames[currentFrame].src;
+
+        if (linearProgress < 1) {
+            animationId = requestAnimationFrame(playSequence);
+        } else {
+            // Animation complete - ensure we show the last frame
+            heroSequenceImg.src = frames[totalFrames - 1].src;
+            isPlaying = false;
+        }
+    }
+
+    // Start playing when title is visible
+    function startAnimation() {
+        if (isPlaying) return;
+        isPlaying = true;
+        startTime = 0;
+        animationId = requestAnimationFrame(playSequence);
+    }
+
+    // Initialize
+    preloadFrames().then(() => {
+        // Start animation after a short delay to let the title load
+        setTimeout(startAnimation, 500);
+    });
+})();
+
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -551,8 +643,14 @@ document.querySelectorAll('section').forEach((section, index) => {
     observer.observe(section);
 });
 
-// Add loading effect to images
+// Add loading effect to images (except hero sequence)
 document.querySelectorAll('img').forEach(img => {
+    // Skip the hero sequence image - it's handled by the PNG sequence animation
+    if (img.id === 'heroSequence') {
+        img.style.opacity = '1';
+        return;
+    }
+    
     img.style.opacity = '0';
     img.style.transition = 'opacity 0.3s ease-in-out';
     
